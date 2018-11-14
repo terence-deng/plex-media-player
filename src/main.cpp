@@ -163,6 +163,12 @@ int main(int argc, char *argv[])
     app.setWindowIcon(QIcon(":/images/icon.png"));
 #endif
 
+#ifdef Q_OS_MAC
+    // This will be necessary once we upgrade Qt to >= 5.11.2
+    // See: https://github.com/plexinc/plex-media-player/issues/799
+    // app.setAttribute(Qt::AA_MacDontSwapCtrlAndMeta, true);
+#endif
+
 #if defined(Q_OS_MAC) && defined(NDEBUG)
     PFMoveToApplicationsFolderIfNecessary();
 #endif
