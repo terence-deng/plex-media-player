@@ -1,0 +1,31 @@
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode10.2
+    - os: osx
+      osx_image: xcode9.4
+    - os: osx
+      osx_image: xcode8.3
+
+language: c
+
+cache: ccache
+
+before_install:
+  - brew update
+  - brew install ninja
+  - brew install mpv
+  - brew install ccache
+  - export PATH="/usr/local/opt/ccache/libexec:$PATH"
+
+script:
+  - mkdir build ; cd build
+  - cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr/local/PlexMediaPlayer -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=output ..
+  - ninja install
+
+notifications:
+  email:
+    recipients:
+      - deng.tulin@icloud.com
+    on_success: never # default: change
+    on_failure: always # default: always
